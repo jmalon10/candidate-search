@@ -5,20 +5,25 @@ import Candidate from '../interfaces/CandidateInterface';
 
 const CandidateSearch = () => {
   const [currentCandidate, setCurrentCandidate] = useState<Candidate | null>(null);
+  const [candidateData, setCandidateData] = useState<Candidate[]>([]);
   useEffect(() => {
-    const fetchCandidates = async () => {
+        const fetchCandidates = async () => {
       const data = await searchGithub();
-      setCurrentCandidate(data[0]);
+      for (let i = 0; i < data.length; i++) {
+        // console.log('candidate search:', data[i].login);
+        const newData = await searchGithubUser(data[i].login);
+        console.log('newData:', newData);
+        // put each new data object into a new array
+        candidateData.push(newData);
+      }
+      setCandidateData(candidateData);
+      setCurrentCandidate(candidateData[0]);
     };
     fetchCandidates();
   }, []);
 // use the data array returned from the fetchCandidates function to switch the currentcanditate state to the next candidate in the array everytime the + button is clicked
-  const saveCandidate = async () => {
-    const data = await searchGithub();
-    for (let i = 0; i < data.length; i++) {
-      setCurrentCandidate(data[i]);
-    }
-    // save the currentCanidate to an array of already saved candidates or an empty array in local storage
+  const saveCandidate = () => {
+    if (!currentCandidate) return;
     let savedCandidates = [];
     const storedSavedCandidates = localStorage.getItem('savedCandidates');
     if (typeof storedSavedCandidates === 'string') {
@@ -29,14 +34,15 @@ const CandidateSearch = () => {
       'savedCandidates',
       JSON.stringify(savedCandidates)
     );
+  // set the current candidate to the next candidate in the array
+    setCurrentCandidate(candidateData [candidateData.indexOf(currentCandidate) + 1]);
   };
  
-  const deleteCandidate = async () => {
-    const data = await searchGithub();
-    for (let i = 0; i < data.length; i++) {
-      setCurrentCandidate(data[i]);
-    }
+  const deleteCandidate = () => {
+    if (!currentCandidate) return;
+    setCurrentCandidate(candidateData [candidateData.indexOf(currentCandidate) + 1]);
   }
+    
 
 return (
     <div>
