@@ -41,7 +41,7 @@ const CandidateCard = ({ candidate, saveCandidate, deleteCandidate }: CandidateC
           <h2>{candidate.login}</h2>
           <img src={candidate.avatar_url} alt="avatar" style={imageStyle} />
           <p><strong>Location: </strong>{candidate.location ? candidate.location : 'Location not available'}</p>
-          <p><strong>Email: </strong>{candidate.email ? candidate.email : 'Email not available'}</p>
+          <p><strong>Email: </strong>{candidate.email ? <a href={`mailto:${candidate.email}`}>{candidate.email}</a>: 'Email not available'}</p>
           <p><strong>Company: </strong>{candidate.company ? candidate.company : 'Company not available'}</p>
           <p><strong>Bio: </strong>{candidate.bio ? candidate.bio : 'Bio not available'}</p>
           <button onClick={() => saveCandidate(candidate)} style={{ ...buttonStyle, backgroundColor: '#4CAF50', color: 'white' }}>+</button>
