@@ -5,6 +5,7 @@ const SavedCandidates = () => {
   return (
     <>
       <h1>Potential Candidates</h1>
+      { savedCandidates.length > 0 ? (
       <table>
         <thead>
           <tr>
@@ -29,6 +30,9 @@ const SavedCandidates = () => {
           ))}
         </tbody>
       </table>
+  ) : (
+      <p>No candidates were saved</p>
+    )}
     </>
   );
 };
