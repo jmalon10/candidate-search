@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const SavedCandidates = () => { 
   // Access the saved candidates from local storage and display them in a table format with column headings for avatar, login, location, email, company, and bio  
