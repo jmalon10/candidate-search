@@ -22,7 +22,7 @@ const SavedCandidates = () => {
               <td><img src={candidate.avatar_url} alt="avatar" style={{ width: '50px', height: '50px', borderRadius: '50%' }} /></td>
               <td>{candidate.login}</td>
               <td>{candidate.location ? candidate.location : 'Location not available'}</td>
-              <td>{candidate.email ? candidate.email : 'Email not available'}</td>
+              <td>{candidate.email ? <a href={`mailto:${candidate.email}`}>{candidate.email}</a> : 'Email not available'}</td>
               <td>{candidate.company ? candidate.company : 'Company not available'}</td>
               <td>{candidate.bio ? candidate.bio : 'Bio not available'}</td>
             </tr>
