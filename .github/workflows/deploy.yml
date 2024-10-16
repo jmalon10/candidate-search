@@ -27,5 +27,5 @@ jobs:
 	  - name: Deploy to GitHub Pages
 		if: success()
 		env:
-		  GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
+		  VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
 		run: npm run deploy
