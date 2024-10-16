@@ -6,8 +6,10 @@ import Candidate from '../interfaces/CandidateInterface';
 const CandidateSearch = () => {
   const [currentCandidate, setCurrentCandidate] = useState<Candidate | null>(null);
   const [candidateData, setCandidateData] = useState<Candidate[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
         const fetchCandidates = async () => {
+        setLoading(true);
       const data = await searchGithub();
       for (let i = 0; i < data.length; i++) {
         // console.log('candidate search:', data[i].login);
@@ -18,6 +20,7 @@ const CandidateSearch = () => {
       }
       setCandidateData(candidateData);
       setCurrentCandidate(candidateData[0]);
+      setLoading(false);
     };
     fetchCandidates();
   }, []);
@@ -44,13 +47,17 @@ const CandidateSearch = () => {
   }
     
 
-return (
+  return (
     <div>
       <h1>CandidateSearch</h1>
-      {currentCandidate && (
+      {loading ? (
+        <p>Loading candidates...</p>
+      ) : currentCandidate ? (
         <div>
-          <CandidateCard candidate={currentCandidate} saveCandidate={saveCandidate} deleteCandidate={deleteCandidate}/>
+          <CandidateCard candidate={currentCandidate} saveCandidate={saveCandidate} deleteCandidate={deleteCandidate} />
         </div>
+      ) : (
+        <p>No more candidates available.</p>
       )}
     </div>
   );
